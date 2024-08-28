@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính số ngày còn lại</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #3333cc;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="date"] {
+            margin: 10px 0;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+        button {
+            background-color: #3333cc;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #5555ff;
+        }
+        p {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tính số ngày còn lại đến ngày hết hạn</h1>
+        <label for="current-date">Nhập ngày hiện tại (MM-DD-YYYY):</label>
+        <input type="date" id="current-date">
+        <br><br>
+        <label for="expiry-date">Nhập ngày hết hạn (MM-DD-YYYY):</label>
+        <input type="date" id="expiry-date">
+        <br><br>
+        <button onclick="calculateDays()">Tính số ngày còn lại</button>
+        
+        <p id="result"></p>
+    </div>
+    
+    <script>
+        function calculateDays() {
+            const currentDate = document.getElementById('current-date').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            
+            if (!currentDate || !expiryDate) {
+                document.getElementById('result').textContent = "Vui lòng nhập cả ngày hiện tại và ngày hết hạn!";
+                return;
+            }
+            
+            const current = new Date(currentDate);
+            const expiry = new Date(expiryDate);
+            const timeDifference = expiry - current;
+            const dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+            
+            if (dayDifference > 0) {
+                document.getElementById('result').textContent = `Còn ${dayDifference} ngày đến ngày hết hạn.`;
+            } else if (dayDifference === 0) {
+                document.getElementById('result').textContent = "Hôm nay là ngày hết hạn!";
+            } else {
+                document.getElementById('result').textContent = `Ngày hết hạn đã qua ${-dayDifference} ngày.`;
+            }
+        }
+    </script>
+</body>
+</html>
